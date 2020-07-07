@@ -1,7 +1,7 @@
 # Verilator Aided Circuit Tester
 這是一個基於一個開源軟體Verilator，能以C++對電路進行模擬並能測試錯誤電路的工具。
 ## Instruction
-| 斜線部分為使用相同電路，僅Example之路徑不同所需修改部分。
+> 底線部分為使用相同電路，僅Example之路徑不同所需修改部分。
 ### Step 1: 修改testbench：
 - 將testbench改寫成tester可使用之形式，如範例ALU43Bit_test.v。其中修改包含：
     1. 將電路之IO加入到testbench的IO中。
@@ -9,20 +9,20 @@
     3. 指定時間以"case:"改寫如範例ALU43Bit_test.v，而不使用"#"。
 ### Step 2: 以範例修改main simulation file (sim_main.cpp) 
 - 修改#include標頭檔，將#include <VALU32Bit_f.h>改為#include <V電路名稱.h>。
-- *修改變數myfifo與main_path，為pipe之位置以及此底層目錄之路徑。*
+- __修改變數myfifo與main_path，為pipe之位置以及此底層目錄之路徑。__
 - 修改simu_ccls變數之值為欲執行的時間(對應到testbench的$time長度)。
 - 在read file的IO部分中，宣告所有電路IO的對應變數，型別為string.
 - 在pipe write file部分中，以"IO變數 = int2s(變數名稱, top->電路中變數名)"為格式列舉所有inputs。並在下面的written中加入所有變數。
 - 在result operation部分中，修改顯示結果為變數名稱以及對應之值。
 - 在report部分中，修改顯示結果為變數名稱以及對應之值。
 ### Step 3: 以範例修改在slave資料夾中的sim_main_slave：
-- *修改變數myfifo，為pipe之位置以及此底層目錄之路徑。*
+- __修改變數myfifo，為pipe之位置以及此底層目錄之路徑。__
 - 修改simu_ccls變數之值為欲執行的時間(對應到testbench的$time長度)，與sim_main.cpp中相同。
 - 修改size變數為所有IO的總數。
 - 目前儲存IO變數名稱與值之各個char變數目前size皆為80(程式碼中所有"80")。此部分可根據實際電路之IO大小調整。
 - 在pattern operation的calculation部分，修改印出的資訊，以及將pipe中讀到的值指派給電路IO，依照sim_main.cpp寫入pipe的順序。
 ### Step 4: 修改run.sh檔案路徑：
-- *修改底層目錄路徑與slave路徑(Example之路徑與slave之路徑)。*
+- __修改底層目錄路徑與slave路徑(Example之路徑與slave之路徑)。__
 ### Step 5: 在底層目錄執行：
 ```linux
 $ tcsh run.sh
