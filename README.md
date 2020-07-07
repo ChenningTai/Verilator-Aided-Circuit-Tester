@@ -30,19 +30,19 @@ $ tcsh run.sh
 ## File Discription
 ### 底層目錄：
 此區負責主要測試的控制與正確電路模擬。會有三個檔案
-**1. 電路檔(.v)**
-**2. testbench檔(.v)**
-**3. main_simulation檔(sim_main.cpp):** 需使用者撰寫。
+- **電路檔(.v)**
+- **testbench檔(.v)**
+- **main_simulation檔(sim_main.cpp):** 需使用者撰寫。
 ### slave資料夾
 此區負責處理代替fault simulation tool的功能。裡面會有兩個檔案：
-**1. main slave simulation檔(sim_main_slave.cpp):** 需使用者撰寫。
-**2. 錯誤電路檔(.v)**
+- **main slave simulation檔(sim_main_slave.cpp):** 需使用者撰寫。
+- **錯誤電路檔(.v)**
 ## Example
 ### 目錄
 Example資料夾中會包含：
 #### 檔案：
 **sim_main.cpp**: 電路模擬之控制檔案，控制模擬中的所有流程。需使用者自行撰寫。
-**run.sh**: 所有執行指令的bash檔。檔案就緒後僅須執行此檔案即可執行模擬，其中包含verilator轉檔、編譯、執行等所有步驟，內部指令詳見verilator官方說明書：。
+**run.sh**: 所有執行指令的bash檔。檔案就緒後僅須執行此檔案即可執行模擬，其中包含verilator轉檔、編譯、執行等所有步驟，內部指令詳見verilator官方說明書：https://www.veripool.org/projects/verilator/wiki/Manual-verilator。
 **report.txt**: 測試後產生的報告，包含每個時間點的電路IO狀態與比較。
 **myfifo**: pipe。
 **ALU32Bit_test.v**: 欲測試電路之testbench。
