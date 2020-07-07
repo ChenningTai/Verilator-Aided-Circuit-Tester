@@ -41,19 +41,19 @@ $ tcsh run.sh
 ### 目錄
 Example資料夾中會包含：
 #### 檔案：
-**sim_main.cpp**: 電路模擬之控制檔案，控制模擬中的所有流程。需使用者自行撰寫。
+**sim_main.cpp**: 電路模擬之控制檔案，控制模擬中的所有流程。需使用者自行撰寫。<br>
 **run.sh**: 所有執行指令的bash檔。檔案就緒後僅須執行此檔案即可執行模擬，其中包含verilator轉檔、編譯、執行等所有步驟，內部指令詳見verilator官方說明書：https://www.veripool.org/projects/verilator/wiki/Manual-verilator。<br>
 **report.txt**: 測試後產生的報告，包含每個時間點的電路IO狀態與比較。<br>
 **myfifo**: pipe。<br>
 **ALU32Bit_test.v**: 欲測試電路之testbench。<br>
-**ALU32Bit_t_test_old**: 修改格式前原始的testbench。
-**ALU32Bit.v**: 欲測試電路。
+**ALU32Bit_t_test_old**: 修改格式前原始的testbench。<br>
+**ALU32Bit.v**: 欲測試電路。<br>
 #### 資料夾：
-**slave**: 替代fault simulation tool之功能。內部為處理錯誤電路的模擬。詳見下方。
-**obj_dir**: verilator轉檔後自動產生之資料夾，內部包括電路轉檔後之.cpp檔、標頭檔、執行檔等。
+**slave**: 替代fault simulation tool之功能。內部為處理錯誤電路的模擬。詳見下方。<br>
+**obj_dir**: verilator轉檔後自動產生之資料夾，內部包括電路轉檔後之.cpp檔、標頭檔、執行檔等。<br>
 #### slave資料夾中：
-**sim_main_slave.cpp**: 錯誤電路模擬之控制檔案。需使用者自行撰寫。
-**ALU32Bit_f.v**: 錯誤電路。
+**sim_main_slave.cpp**: 錯誤電路模擬之控制檔案。需使用者自行撰寫。<br>
+**ALU32Bit_f.v**: 錯誤電路。<br>
 ### 執行方式
 在底層目錄example/執行：
 ```linux
