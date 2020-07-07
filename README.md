@@ -1,7 +1,7 @@
 # Verilator Aided Circuit Tester
 這是一個基於一個開源軟體Verilator，能以C++對電路進行模擬並能測試錯誤電路的工具。
 ## Instruction
-> 底線部分為使用相同電路，僅Example之路徑不同所需修改部分。
+> 粗體部分為使用相同電路，僅Example之路徑不同所需修改部分。
 ### Step 1: 修改testbench：
 - 將testbench改寫成tester可使用之形式，如範例ALU43Bit_test.v。其中修改包含：
     1. 將電路之IO加入到testbench的IO中。
