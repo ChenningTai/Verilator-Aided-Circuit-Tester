@@ -42,10 +42,10 @@ $ tcsh run.sh
 Example資料夾中會包含：
 #### 檔案：
 **sim_main.cpp**: 電路模擬之控制檔案，控制模擬中的所有流程。需使用者自行撰寫。
-**run.sh**: 所有執行指令的bash檔。檔案就緒後僅須執行此檔案即可執行模擬，其中包含verilator轉檔、編譯、執行等所有步驟，內部指令詳見verilator官方說明書：https://www.veripool.org/projects/verilator/wiki/Manual-verilator。
-**report.txt**: 測試後產生的報告，包含每個時間點的電路IO狀態與比較。
-**myfifo**: pipe。
-**ALU32Bit_test.v**: 欲測試電路之testbench。
+**run.sh**: 所有執行指令的bash檔。檔案就緒後僅須執行此檔案即可執行模擬，其中包含verilator轉檔、編譯、執行等所有步驟，內部指令詳見verilator官方說明書：https://www.veripool.org/projects/verilator/wiki/Manual-verilator。<br>
+**report.txt**: 測試後產生的報告，包含每個時間點的電路IO狀態與比較。<br>
+**myfifo**: pipe。<br>
+**ALU32Bit_test.v**: 欲測試電路之testbench。<br>
 **ALU32Bit_t_test_old**: 修改格式前原始的testbench。
 **ALU32Bit.v**: 欲測試電路。
 #### 資料夾：
