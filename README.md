@@ -6,7 +6,7 @@
     1. 將電路之IO加入到testbench的IO中。
     2. 加入一個input為system_clk，並將電路always block之觸發條件為"posedge sys_clk or negedge sys_clk"。
     3. 指定時間以"case:"改寫如範例ALU43Bit_test.v，而不使用"#"。
-### Step 2: 以範例修改main simulation file (sim_main.cpp):
+### Step 2: 以範例修改main simulation file (sim_main.cpp) 
 - 修改#include標頭檔，將#include <VALU32Bit_f.h>改為#include <V電路名稱.h>。
 - 修改myfifo與main_path，為pipe之位置以及此底層目錄之路徑。
 - 修改simu_ccls變數之值為欲執行的時間(對應到testbench的$time長度)。
@@ -17,6 +17,7 @@
 ### Step 3: 以範例修改在slave資料夾中的sim_main_slave：
 - 修改simu_ccls變數之值為欲執行的時間(對應到testbench的$time長度)，與sim_main.cpp中相同。
 - 修改size變數為所有IO的總數。
+- 目前儲存IO變數名稱與值之各個char變數目前size皆為80(程式碼中所有"80")。此部分可根據實際電路之IO大小調整。
 - 在pattern operation的calculation部分，修改印出的資訊，以及將pipe中讀到的值指派給電路IO，依照sim_main.cpp寫入pipe的順序。
 ### Step 4: 在底層目錄執行：
 ```linux
