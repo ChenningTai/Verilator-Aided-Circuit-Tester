@@ -60,7 +60,7 @@ Example資料夾中會包含：
 $ tcsh run.sh
 ```
 ## Related Projects
-### Verilator：
+### Verilator
 #### Manual：
 https://www.veripool.org/projects/verilator/wiki/Manual-verilator
 #### Github：
