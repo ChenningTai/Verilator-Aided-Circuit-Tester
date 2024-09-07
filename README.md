@@ -1,5 +1,5 @@
 # Verilator Aided Circuit Tester
-這是一個基於一個開源軟體Verilator，能以C++對電路進行模擬並能測試錯誤電路的工具。
+這是一個基於一個開源軟體Verilator，能以C++對電路進行模擬並能測試錯誤電路的工具。(This is a tool based on the open-source software Verilator, which can simulate circuits in C++ and test faulty circuits.)
 ## Instruction
 > 可將不同的input檔輸入相同電路，粗體部分為使用相同電路，僅與Example之路徑不同所需修改部分。
 ### Step 1: 修改testbench：
@@ -65,3 +65,85 @@ $ tcsh run.sh
 https://www.veripool.org/projects/verilator/wiki/Manual-verilator
 #### Github：
 https://github.com/verilator/verilator
+
+English Version:
+
+# Verilator Aided Circuit Tester
+This is a tool based on the open-source software Verilator. This tool can simulate circuits in C++ and test faulty circuits.
+
+## Instructions
+> Different input files can be applied to the same circuit. The files in bold font indicate modifications required when using the same circuit but with different paths in the Example.
+
+### Step 1: Modify the testbench:
+- Rewrite the testbench to a format usable by the tester, such as the example **ALU43Bit_test.v**. Modifications include:
+    1. Add the circuit's IO to the testbench's IO.
+    2. Add an input for the system clock (`system_clk`) and set the always block trigger condition to `"posedge sys_clk or negedge sys_clk"`.
+    3. Rewrite the timing specification using `case:` instead of `#`, as in **ALU43Bit_test.v**.
+
+### Step 2: Modify the main simulation file (`sim_main.cpp`):
+- Modify the `#include` header file, changing `#include <VALU32Bit_f.h>` to `#include <V<CircuitName>.h>`.
+- __Change the variables `myfifo` and `main_path` to specify the location of the pipe and the path to the root directory.__
+- Modify the `simu_ccls` variable value to match the desired execution time (which corresponds to the `$time` length in the testbench).
+- In the read file's IO section, declare all the circuit IO as corresponding variables of type string.
+- In the pipe write file section, list all inputs using the format `"IO_variable = int2s(variable_name, top->circuit_variable_name)"`. Also, add all variables to the written section.
+- In the result operation section, modify the output to display the variable names and their corresponding values.
+- In the report section, modify the output to display the variable names and their corresponding values.
+
+### Step 3: Modify the `sim_main_slave` in the slave folder:
+- __Change the `myfifo` variable to specify the location of the pipe and the path to the root directory.__
+- Modify the `simu_ccls` variable value to match the desired execution time (which corresponds to the `$time` length in the testbench) to be consistent with `sim_main.cpp`.
+- Modify the `size` variable to match the total number of IOs.
+- Adjust the size of the `char` variables storing the IO names and values (currently set to 80 in the code). This size can be adjusted based on the actual IO size of the circuit.
+- In the pattern operation's calculation section, modify the printed information and assign the values read from the pipe to the circuit's IOs, following the order in which the values were written to the pipe in `sim_main.cpp`.
+
+### Step 4: Modify the paths in the `run.sh` file:
+- __Change the root directory path and the slave path (Example path and slave path).__
+
+### Step 5: Run in the root directory:
+```bash
+$ tcsh run.sh
+```
+## File Description
+### Root Directory:
+This section is responsible for the main test control and correct circuit simulation. There will be three files:
+- **Circuit file (.v)**
+- **Testbench file (.v)**
+- **Main simulation file (`sim_main.cpp`)**: Written by the user.
+
+### Slave Folder:
+This section is responsible for handling the functions of the fault simulation tool. It contains two files:
+- **Main slave simulation file (`sim_main_slave.cpp`)**: Written by the user.
+- **Faulty circuit file (.v)**
+
+## Example
+### Directory:
+The Example folder contains:
+
+#### Files:
+- **`sim_main.cpp`**: The control file for the circuit simulation, managing the entire simulation process. Written by the user.<br>
+- **`run.sh`**: A bash script for executing all commands. After all files are ready, this script is all that needs to be executed to run the simulation. It includes Verilator conversion, compilation, execution, and more. See the Verilator official manual for detailed instructions: [https://www.veripool.org/projects/verilator/wiki/Manual-verilator](https://www.veripool.org/projects/verilator/wiki/Manual-verilator).<br>
+- **`report.txt`**: The report generated after testing, including the circuit IO status and comparisons at each time point.<br>
+- **`myfifo`**: The pipe.<br>
+- **`ALU32Bit_test.v`**: The testbench for the circuit.<br>
+- **`ALU32Bit_t_test_old`**: The original testbench before format modification.<br>
+- **`ALU32Bit.v`**: The circuit to be tested.<br>
+
+#### Folders:
+- **`slave`**: Replaces the fault simulation tool. It handles the simulation of faulty circuits. See below for details.<br>
+- **`obj_dir`**: Automatically generated folder after Verilator converts the circuit, containing the converted `.cpp` files, header files, executables, etc.<br>
+
+#### In the `slave` folder:
+- **`sim_main_slave.cpp`**: The control file for simulating faulty circuits. Written by the user.<br>
+- **`ALU32Bit_f.v`**: The faulty circuit.<br>
+
+### Execution:
+In the root directory of `example/`, execute:
+```bash
+$ tcsh run.sh
+```
+## Related Projects
+### Verilator
+#### Manual:
+[https://www.veripool.org/projects/verilator/wiki/Manual-verilator](https://www.veripool.org/projects/verilator/wiki/Manual-verilator)
+#### GitHub:
+[https://github.com/verilator/verilator](https://github.com/verilator/verilator)
